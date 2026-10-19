@@ -33,6 +33,31 @@ module MoviesHelper
   end
 
 
+  def sortbutton(column, label)
+
+    classes = "sort-chip"
+    nextdir = "asc"
+    arrow = "↕"
+
+    if(column == @sort_column)
+      classes = "sort-chip sorted sorted-#{@sort_direction}"
+
+      if(@sort_direction == "asc")
+        nextdir = "desc"
+        arrow = "▲"
+      else
+        arrow = "▼"
+      end
+    end
+
+    arrowspan = content_tag(:span, arrow, class: "sort-indicator", "aria-hidden": true)
+
+    return link_to(safe_join([label, " ", arrowspan]),
+                   movies_path(sort: column, direction: nextdir),
+                   id: "#{column}_chip", class: classes)
+  end
+
+
   def sortcellclass(column)
 
     if(column == @sort_column)

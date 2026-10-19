@@ -21,11 +21,19 @@ class MoviesController < ApplicationController
       sortdir = "asc"
     end
 
+    view = params[:view] || session[:view]
+
+    if(view != "table")
+      view = "grid"
+    end
+
     session[:sort_column] = sortcol
     session[:sort_direction] = sortdir
+    session[:view] = view
 
     @sort_column = sortcol
     @sort_direction = sortdir
+    @view = view
     @movies = Movie.sortmovies(sortcol, sortdir)
 
   end

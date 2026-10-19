@@ -10,31 +10,40 @@
     </div>
   <% end %>
 
-  <div class="field">
-    <%= form.label :title do %>Title <span class="required">(required)</span><% end %>
-    <%= form.text_field :title, required: true %>
-  </div>
+  <div class="form-layout">
+    <div class="form-fields">
+      <div class="field">
+        <%= form.label :title do %>Title <span class="required">(required)</span><% end %>
+        <%= form.text_field :title, required: true %>
+      </div>
 
-  <div class="field-row">
-    <div class="field">
-      <%= form.label :rating %>
-      <%= form.select :rating, Movie::RATINGS, include_blank: "Choose a rating" %>
+      <div class="field-row">
+        <div class="field">
+          <%= form.label :rating %>
+          <%= form.select :rating, Movie::RATINGS, include_blank: "Choose a rating" %>
+        </div>
+
+        <div class="field">
+          <%= form.label :release_date %>
+          <%= form.date_field :release_date, value: movie.release_date&.to_date %>
+        </div>
+      </div>
+
+      <div class="field">
+        <%= form.label :description %>
+        <%= form.text_area :description, rows: 8 %>
+      </div>
+
+      <div class="field">
+        <%= form.label :poster_url, "Poster image URL" %>
+        <%= form.url_field :poster_url, placeholder: "https://...", class: "posterInput" %>
+      </div>
     </div>
 
-    <div class="field">
-      <%= form.label :release_date %>
-      <%= form.date_field :release_date, value: movie.release_date&.to_date %>
+    <div class="poster-preview">
+      <img class="previewImg" src="<%= movie.poster_url %>" alt="Poster preview" <%= "hidden" if movie.poster_url.blank? %>>
+      <p class="previewEmpty" <%= "hidden" if movie.poster_url.present? %>>Paste a poster link to see it here</p>
     </div>
-  </div>
-
-  <div class="field">
-    <%= form.label :description %>
-    <%= form.text_area :description, rows: 5 %>
-  </div>
-
-  <div class="field">
-    <%= form.label :poster_url, "Poster image URL" %>
-    <%= form.url_field :poster_url, placeholder: "https://..." %>
   </div>
 
   <div class="button-row">
