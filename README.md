@@ -2,6 +2,10 @@
 
 A small Rails app for keeping track of movies. You can add, view, edit, and delete movies, see them as a poster wall or a sortable table, and upload a poster for each one.
 
+## Deployed app
+
+https://rottenpotatoes-cann-ea7b82ac6506.herokuapp.com
+
 ## Project structure
 
 ```
