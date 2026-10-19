@@ -87,74 +87,18 @@ main.container {
 }
 
 
-/* GLASS (shared look for header, footer, cards) */
-
-.site-header,
-.site-footer,
-.card {
-    background: var(--glass);
-    border: 1px solid var(--border);
-
-    backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);
-}
-
-
-/* HEADER / FOOTER */
-
-.site-header {
-    border-width: 0 0 1px;
-}
-
-.header-inner {
-    min-height: 64px;
-
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    flex-wrap: wrap;
-    gap: 12px;
-}
-
-.brand {
-    font-size: 1.3rem;
-    font-weight: 800;
-    color: white;
-    text-decoration: none;
-}
-
-.site-nav {
-    display: flex;
-    align-items: center;
-    gap: 16px;
-}
-
-.nav-link {
-    font-weight: 700;
-    color: var(--text-soft);
-    text-decoration: none;
-}
-
-.nav-link.active,
-.nav-link:hover {
-    color: white;
-}
-
-.site-footer {
-    padding: 20px 0;
-    border-width: 1px 0 0;
-
-    text-align: center;
-    font-size: 0.9rem;
-    color: var(--text-soft);
-}
-
-
 /* CARDS / MESSAGES */
 
 .card {
     padding: 28px;
+
+    border: 1px solid var(--border);
     border-radius: 24px;
+
+    background: var(--glass);
+
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
 }
 
 .card + .card {
@@ -220,8 +164,7 @@ main.container {
 
 /* BUTTONS */
 
-.button,
-.nav-button {
+.button {
     display: inline-block;
     padding: 10px 20px;
 
@@ -238,9 +181,7 @@ main.container {
     cursor: pointer;
 }
 
-.button:hover,
-.nav-button:hover,
-.nav-button.active {
+.button:hover {
     color: #101418;
     background: #dcebff;
 }
@@ -487,48 +428,6 @@ main.container {
 }
 
 
-/* HERO */
-
-.hero {
-    position: relative;
-    height: 260px;
-    overflow: hidden;
-}
-
-.hero-posters {
-    display: grid;
-    grid-template-columns: repeat(8, 1fr);
-    gap: 6px;
-
-    opacity: 0.3;
-}
-
-.hero-posters img {
-    width: 100%;
-    aspect-ratio: 2 / 3;
-    object-fit: cover;
-}
-
-.hero-content {
-    position: absolute;
-    inset: 0;
-
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.hero-title {
-    margin: 0;
-
-    font-size: clamp(2rem, 6vw, 3.5rem);
-    font-weight: 800;
-    color: white;
-
-    text-shadow: 0 4px 18px rgba(0, 0, 0, 0.5);
-}
-
-
 /* POSTER GRID */
 
 .poster-grid {
@@ -539,10 +438,6 @@ main.container {
     margin: 0;
     padding: 0;
     list-style: none;
-}
-
-.poster-overlay {
-    display: none;
 }
 
 .poster-info {
@@ -728,14 +623,6 @@ main.container {
 /* RESPONSIVE */
 
 @media (max-width: 650px) {
-    .hero {
-        height: 180px;
-    }
-
-    .hero-posters {
-        grid-template-columns: repeat(5, 1fr);
-    }
-
     .card {
         padding: 22px 18px;
         border-radius: 20px;

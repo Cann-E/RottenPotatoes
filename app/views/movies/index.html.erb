@@ -1,21 +1,5 @@
 <% content_for :title, "All Movies" %>
 
-<% heroposters = @movies.select { |m| m.poster_url.present? } %>
-<% if heroposters.any? %>
-  <% content_for :hero do %>
-    <section class="hero">
-      <div class="hero-posters" aria-hidden="true">
-        <% 16.times do |i| %>
-          <%= image_tag heroposters[i % heroposters.size].poster_url, alt: "" %>
-        <% end %>
-      </div>
-      <div class="hero-content">
-        <h2 class="hero-title">RottenPotatoes</h2>
-      </div>
-    </section>
-  <% end %>
-<% end %>
-
 <div class="page-header">
   <div>
     <p class="eyebrow">My collection</p>
@@ -51,10 +35,9 @@
   <% if @view == "grid" %>
     <ul class="poster-grid">
       <% @movies.each do |movie| %>
-        <li id="<%= dom_id movie %>" class="poster-card reveal">
+        <li id="<%= dom_id movie %>" class="poster-card">
           <%= link_to movie, class: "poster-link" do %>
             <%= displayposter(movie, "tile") %>
-            <span class="poster-overlay">View details</span>
           <% end %>
 
           <div class="poster-info">
