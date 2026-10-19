@@ -12,26 +12,24 @@
 
   <div class="field">
     <%= form.label :title do %>Title <span class="required">(required)</span><% end %>
-    <%= form.text_field :title, required: true, placeholder: "e.g. The Princess Bride" %>
+    <%= form.text_field :title, required: true %>
   </div>
 
   <div class="field-row">
     <div class="field">
       <%= form.label :rating %>
       <%= form.select :rating, Movie::RATINGS, include_blank: "Choose a rating" %>
-      <p class="hint">G is for everyone; R and NC-17 are for adults.</p>
     </div>
 
     <div class="field">
       <%= form.label :release_date %>
       <%= form.date_field :release_date, value: movie.release_date&.to_date %>
-      <p class="hint">Click the box to pick a date.</p>
     </div>
   </div>
 
   <div class="field">
     <%= form.label :description %>
-    <%= form.text_area :description, rows: 5, placeholder: "What is the movie about? (optional)" %>
+    <%= form.text_area :description, rows: 5 %>
   </div>
 
   <div class="button-row">

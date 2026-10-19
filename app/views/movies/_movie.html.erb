@@ -5,7 +5,7 @@
     <dd><% if movie.rating.present? %><span class="rating-badge"><%= movie.rating %></span><% else %><span class="muted">Not rated</span><% end %></dd>
 
     <dt>Release date</dt>
-    <dd><%= release_date_display(movie) %></dd>
+    <dd><%= displaydate(movie) %></dd>
 
     <dt>Description</dt>
     <dd><%= movie.description.presence || content_tag(:span, "No description yet.", class: "muted") %></dd>
