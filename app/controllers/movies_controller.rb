@@ -23,8 +23,8 @@ class MoviesController < ApplicationController
 
     view = params[:view] || session[:view]
 
-    if(view != "table")
-      view = "grid"
+    if(view != "grid")
+      view = "table"
     end
 
     session[:sort_column] = sortcol

@@ -96,6 +96,15 @@ Then open http://localhost:3000 in a browser. Press `Ctrl+C` in the terminal to 
 - Sort by title, rating, or release date (ascending and descending)
 - Sort choice and view are remembered when you leave the page and come back
 
+## Table and poster views
+
+The movie list opens as a table by default. Use the **Posters | Table** switch at the top right of the list to change views.
+
+- **Table** - one row per movie with title, rating, and release date. It uses `<thead>`, `<th>`, `<tbody>`, and `<tfoot>`, and the footer shows how many movies are in the catalog. Click a column header to sort.
+- **Posters** - the same movies as a poster wall. The **Sort by** buttons above it sort the same way as the table headers.
+
+Both views share the same sort, and the app remembers which view you picked.
+
 ## How sorting works
 
 Sorting happens in the model with ActiveRecord (`Movie.sortmovies`), so the database does the ordering. Only `title`, `rating`, and `release_date` are allowed as sort columns, so nothing else from the URL can get into the query.
