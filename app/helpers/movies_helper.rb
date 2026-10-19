@@ -43,6 +43,16 @@ module MoviesHelper
   end
 
 
+  def displayposter(movie, size)
+
+    if(movie.poster_url.present?)
+      return image_tag(movie.poster_url, alt: "#{movie.title} poster", class: "poster poster-#{size}", loading: "lazy")
+    end
+
+    return content_tag(:div, movie.title.first.upcase, class: "poster poster-#{size} poster-empty", "aria-hidden": true)
+  end
+
+
   def displaydate(movie)
 
     if(movie.release_date)

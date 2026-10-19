@@ -414,13 +414,65 @@ button.button-danger{
     background: #fbf6ef;
 }
 
-.movie-title{
-    font-weight: 600;
+.title-cell{
+    display: flex;
+    align-items: center;
+    gap: 14px;
     text-decoration: none;
 }
 
-.movie-title:hover{
+.movie-title{
+    font-weight: 600;
+}
+
+.title-cell:hover .movie-title{
     text-decoration: underline;
+}
+
+.title-cell:hover .poster-small{
+    transform: scale(1.08);
+}
+
+/* POSTERS */
+
+.poster{
+    display: block;
+    flex-shrink: 0;
+    object-fit: cover;
+    border-radius: 8px;
+    background: var(--potato-soft);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.18);
+}
+
+.poster-small{
+    width: 46px;
+    height: 68px;
+    border-radius: 6px;
+    transition: transform 0.2s ease;
+}
+
+.poster-large{
+    width: 220px;
+    height: 330px;
+    border-radius: 12px;
+    box-shadow: 0 14px 34px rgba(0, 0, 0, 0.25);
+}
+
+.poster-empty{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    font-weight: 700;
+    background: linear-gradient(135deg, var(--potato), var(--potato-dark));
+}
+
+.poster-small.poster-empty{
+    font-size: 1.3rem;
+}
+
+.poster-large.poster-empty{
+    font-size: 5rem;
 }
 
 .movies-table .actions-col{
@@ -457,6 +509,17 @@ button.button-danger{
 }
 
 /* MOVIE DETAILS */
+
+.movie-details{
+    display: flex;
+    align-items: flex-start;
+    gap: 32px;
+}
+
+.movie-info{
+    flex: 1;
+    min-width: 0;
+}
 
 .movie-details h1{
     margin-bottom: 20px;
@@ -531,6 +594,7 @@ button.button-danger{
 }
 
 .movie-form input[type="text"],
+.movie-form input[type="url"],
 .movie-form input[type="date"],
 .movie-form select,
 .movie-form textarea{
@@ -571,29 +635,43 @@ button.button-danger{
 
 @media (max-width: 600px){
     main.container{
-    padding-top: 20px;
+        padding-top: 20px;
     }
 
     .card{
-    padding: 20px 16px;
+        padding: 20px 16px;
+    }
+
+    .movie-details{
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .movie-info{
+        width: 100%;
     }
 
     .movie-details dl,
     .movie-form .field-row{
-    grid-template-columns: 1fr;
+        grid-template-columns: 1fr;
     }
 
     .movie-details dt{
-    margin-bottom: -10px;
+        margin-bottom: -10px;
     }
 
     .movies-table th,
     .movies-table td{
-    padding: 10px 8px;
+        padding: 10px 8px;
+    }
+
+    .poster-small{
+        width: 36px;
+        height: 54px;
     }
 
     .nav-link,
     .nav-button{
-    padding: 6px 10px;
+        padding: 6px 10px;
     }
 }
