@@ -1,10 +1,7 @@
 <% content_for :title, "All Movies" %>
 
 <div class="page-header">
-  <div>
-    <h1>All Movies</h1>
-    
-  </div>
+  <h1>All Movies</h1>
   <%= link_to "+ Add a Movie", new_movie_path, class: "button" %>
 </div>
 
@@ -12,65 +9,96 @@
   <section class="card empty-state">
     <p class="empty-icon" aria-hidden="true">🎬</p>
     <h2>No movies yet</h2>
-    
     <%= link_to "+ Add a Movie", new_movie_path, class: "button" %>
   </section>
 <% else %>
-  <section class="card">
-    <div class="sort-help">
-      <p>
-        Click a column to sort. Click again to flip it.
-      </p>
+  <div class="toolbar">
+    <div class="sort-bar">
+      <span class="sort-label">Sort by</span>
+      <%= sortbutton "title", "Title" %>
+      <%= sortbutton "rating", "Rating" %>
+      <%= sortbutton "release_date", "Release Date" %>
       <% if @sort_column %>
-        <p class="sort-status sort-status-<%= @sort_direction %>">
-          Sorted by <strong><%= @sort_column.humanize.downcase %></strong>,
-          <%= @sort_direction == "asc" ? "▲ ascending" : "▼ descending" %>
-          · <%= link_to "Clear sorting", movies_path(sort: "none") %>
-        </p>
+        <%= link_to "Clear", movies_path(sort: "none"), class: "clear-sort" %>
       <% end %>
     </div>
 
-    <div class="table-wrap">
-      <table id="movies" class="movies-table">
-        <caption class="visually-hidden">
-          List of movies<%= ", sorted by #{@sort_column.humanize.downcase} #{@sort_direction == "asc" ? "ascending" : "descending"}" if @sort_column %>
-        </caption>
-        <thead>
-          <tr>
-            <%= sortheader "title", "Title" %>
-            <%= sortheader "rating", "Rating" %>
-            <%= sortheader "release_date", "Release Date" %>
-            <th scope="col" class="actions-col">Actions</th>
-          </tr>
-        </thead>
-        <tbody>
-          <% @movies.each do |movie| %>
-            <tr id="<%= dom_id movie %>">
-              <td class="<%= sortcellclass("title") %>">
-                <%= link_to movie, class: "title-cell" do %>
-                  <%= displayposter(movie, "small") %>
-                  <span class="movie-title"><%= movie.title %></span>
-                <% end %>
-              </td>
-              <td class="<%= sortcellclass("rating") %>">
-                <% if movie.rating.present? %><span class="rating-badge"><%= movie.rating %></span><% else %><span class="muted">—</span><% end %>
-              </td>
-              <td class="<%= sortcellclass("release_date") %>"><%= displaydate(movie) %></td>
-              <td class="actions">
-                <%= link_to "View", movie, class: "button button-small button-secondary",
-                      "aria-label": "View #{movie.title}" %>
-                <%= link_to "Edit", edit_movie_path(movie), class: "button button-small button-secondary",
-                      "aria-label": "Edit #{movie.title}" %>
-              </td>
-            </tr>
+    <nav class="view-toggle" aria-label="View">
+      <%= link_to "Posters", movies_path(view: "grid"), class: ("active" if @view == "grid"), "aria-current": (@view == "grid" ? "page" : nil) %>
+      <%= link_to "Table", movies_path(view: "table"), class: ("active" if @view == "table"), "aria-current": (@view == "table" ? "page" : nil) %>
+    </nav>
+  </div>
+
+  <% if @view == "grid" %>
+    <ul class="poster-grid">
+      <% @movies.each do |movie| %>
+        <li id="<%= dom_id movie %>" class="poster-card">
+          <%= link_to movie, class: "poster-link" do %>
+            <%= displayposter(movie, "tile") %>
+            <span class="poster-overlay">View details</span>
           <% end %>
-        </tbody>
-        <tfoot>
-          <tr>
-            <td colspan="4"><%= pluralize(@movies.size, "movie") %> in the catalog</td>
-          </tr>
-        </tfoot>
-      </table>
-    </div>
-  </section>
+
+          <div class="poster-info">
+            <%= link_to movie.title, movie, class: "poster-title #{sortcellclass("title")}" %>
+            <div class="poster-meta">
+              <% if movie.rating.present? %>
+                <span class="rating-badge <%= sortcellclass("rating") %>"><%= movie.rating %></span>
+              <% end %>
+              <span class="poster-year <%= sortcellclass("release_date") %>">
+                <%= movie.release_date ? movie.release_date.year : "—" %>
+              </span>
+              <%= link_to "Edit", edit_movie_path(movie), class: "poster-edit", "aria-label": "Edit #{movie.title}" %>
+            </div>
+          </div>
+        </li>
+      <% end %>
+    </ul>
+
+    <p class="grid-count"><%= pluralize(@movies.size, "movie") %> in the catalog</p>
+  <% else %>
+    <section class="card">
+      <div class="table-wrap">
+        <table id="movies" class="movies-table">
+          <caption class="visually-hidden">
+            List of movies<%= ", sorted by #{@sort_column.humanize.downcase} #{@sort_direction == "asc" ? "ascending" : "descending"}" if @sort_column %>
+          </caption>
+          <thead>
+            <tr>
+              <%= sortheader "title", "Title" %>
+              <%= sortheader "rating", "Rating" %>
+              <%= sortheader "release_date", "Release Date" %>
+              <th scope="col" class="actions-col">Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% @movies.each do |movie| %>
+              <tr id="<%= dom_id movie %>">
+                <td class="<%= sortcellclass("title") %>">
+                  <%= link_to movie, class: "title-cell" do %>
+                    <%= displayposter(movie, "small") %>
+                    <span class="movie-title"><%= movie.title %></span>
+                  <% end %>
+                </td>
+                <td class="<%= sortcellclass("rating") %>">
+                  <% if movie.rating.present? %><span class="rating-badge"><%= movie.rating %></span><% else %><span class="muted">—</span><% end %>
+                </td>
+                <td class="<%= sortcellclass("release_date") %>"><%= displaydate(movie) %></td>
+                <td class="actions">
+                  <%= link_to "View", movie, class: "button button-small button-secondary",
+                        "aria-label": "View #{movie.title}" %>
+                  <%= link_to "Edit", edit_movie_path(movie), class: "button button-small button-secondary",
+                        "aria-label": "Edit #{movie.title}" %>
+                </td>
+              </tr>
+            <% end %>
+          </tbody>
+          <tfoot>
+            <tr>
+              <td colspan="4"><%= pluralize(@movies.size, "movie") %> in the catalog</td>
+            </tr>
+          </tfoot>
+        </table>
+      </div>
+    </section>
+  <% end %>
 <% end %>
