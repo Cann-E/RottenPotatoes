@@ -2,12 +2,12 @@
   <h1><%= movie.title %></h1>
   <dl>
     <dt>Rating</dt>
-    <dd><% if movie.rating.present? %><span class="rating-badge"><%= movie.rating %></span><% else %>—<% end %></dd>
+    <dd><% if movie.rating.present? %><span class="rating-badge"><%= movie.rating %></span><% else %><span class="muted">Not rated</span><% end %></dd>
 
     <dt>Release date</dt>
     <dd><%= release_date_display(movie) %></dd>
 
     <dt>Description</dt>
-    <dd><%= movie.description.presence || "No description yet." %></dd>
+    <dd><%= movie.description.presence || content_tag(:span, "No description yet.", class: "muted") %></dd>
   </dl>
 </article>

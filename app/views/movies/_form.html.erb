@@ -1,7 +1,7 @@
 <%= form_with(model: movie, class: "movie-form") do |form| %>
   <% if movie.errors.any? %>
-    <div class="error-box">
-      <h2><%= pluralize(movie.errors.count, "error") %> prohibited this movie from being saved:</h2>
+    <div class="error-box" role="alert">
+      <h2>Please fix <%= movie.errors.count == 1 ? "this problem" : "these #{movie.errors.count} problems" %>:</h2>
       <ul>
         <% movie.errors.each do |error| %>
           <li><%= error.full_message %></li>
@@ -11,26 +11,31 @@
   <% end %>
 
   <div class="field">
-    <%= form.label :title %>
-    <%= form.text_field :title, required: true %>
+    <%= form.label :title do %>Title <span class="required">(required)</span><% end %>
+    <%= form.text_field :title, required: true, placeholder: "e.g. The Princess Bride" %>
   </div>
 
-  <div class="field">
-    <%= form.label :rating %>
-    <%= form.select :rating, Movie::RATINGS, include_blank: "Choose a rating" %>
-  </div>
+  <div class="field-row">
+    <div class="field">
+      <%= form.label :rating %>
+      <%= form.select :rating, Movie::RATINGS, include_blank: "Choose a rating" %>
+      <p class="hint">G is for everyone; R and NC-17 are for adults.</p>
+    </div>
 
-  <div class="field">
-    <%= form.label :release_date %>
-    <%= form.date_field :release_date, value: movie.release_date&.to_date %>
+    <div class="field">
+      <%= form.label :release_date %>
+      <%= form.date_field :release_date, value: movie.release_date&.to_date %>
+      <p class="hint">Click the box to pick a date.</p>
+    </div>
   </div>
 
   <div class="field">
     <%= form.label :description %>
-    <%= form.text_area :description, rows: 5 %>
+    <%= form.text_area :description, rows: 5, placeholder: "What is the movie about? (optional)" %>
   </div>
 
   <div class="button-row">
-    <%= form.submit class: "button" %>
+    <%= form.submit movie.persisted? ? "Save changes" : "Save movie", class: "button" %>
+    <%= link_to "Cancel", cancel_path, class: "button button-secondary" %>
   </div>
 <% end %>
