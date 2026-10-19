@@ -1,16 +1,48 @@
-<p style="color: green"><%= notice %></p>
-
 <% content_for :title, "Movies" %>
 
-<h1>Movies</h1>
+<section class="card">
+  <div class="card-header">
+    <h1>All Movies</h1>
+    <%= link_to "+ Add new movie", new_movie_path, class: "button" %>
+  </div>
 
-<div id="movies">
-  <% @movies.each do |movie| %>
-    <%= render movie %>
-    <p>
-      <%= link_to "Show this movie", movie %>
-    </p>
-  <% end %>
-</div>
-
-<%= link_to "New movie", new_movie_path %>
+  <table id="movies" class="movies-table">
+    <caption>
+      <% if @sort_column %>
+        Sorted by <%= @sort_column.humanize.downcase %>
+        (<%= @sort_direction == "asc" ? "ascending" : "descending" %>).
+        Click a column header to change the order.
+      <% else %>
+        Click a column header to sort.
+      <% end %>
+    </caption>
+    <thead>
+      <tr>
+        <%= sortable_header "title", "Title" %>
+        <%= sortable_header "rating", "Rating" %>
+        <%= sortable_header "release_date", "Release Date" %>
+        <th scope="col">Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @movies.each do |movie| %>
+        <tr id="<%= dom_id movie %>">
+          <td class="<%= sorted_cell_class("title") %>"><%= link_to movie.title, movie %></td>
+          <td class="<%= sorted_cell_class("rating") %>">
+            <% if movie.rating.present? %><span class="rating-badge"><%= movie.rating %></span><% end %>
+          </td>
+          <td class="<%= sorted_cell_class("release_date") %>"><%= release_date_display(movie) %></td>
+          <td class="actions">
+            <%= link_to "Details", movie %>
+            <%= link_to "Edit", edit_movie_path(movie) %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+    <tfoot>
+      <tr>
+        <td colspan="4"><%= pluralize(@movies.size, "movie") %> in the catalog</td>
+      </tr>
+    </tfoot>
+  </table>
+</section>

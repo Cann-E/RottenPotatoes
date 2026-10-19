@@ -3,7 +3,17 @@ class MoviesController < ApplicationController
 
   # GET /movies or /movies.json
   def index
-    @movies = Movie.all
+    # Explicit sort params win; otherwise fall back to the last sort the user picked,
+    # so the ordering survives trips to new/show/edit and back.
+    @sort_column = params[:sort] || session[:sort_column]
+    @sort_direction = params[:direction] || session[:sort_direction]
+    @sort_column = nil unless Movie::SORTABLE_COLUMNS.include?(@sort_column)
+    @sort_direction = "asc" unless Movie::SORT_DIRECTIONS.include?(@sort_direction)
+
+    session[:sort_column] = @sort_column
+    session[:sort_direction] = @sort_direction
+
+    @movies = Movie.sorted_by(@sort_column, @sort_direction)
   end
 
   # GET /movies/1 or /movies/1.json
