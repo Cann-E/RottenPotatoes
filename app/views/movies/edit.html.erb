@@ -3,7 +3,8 @@
 <%= link_to "← Back to #{@movie.title}", @movie, class: "back-link" %>
 
 <section class="card">
-  <h1>Edit Movie</h1>
+  <p class="eyebrow">Editing</p>
+  <h1><%= @movie.title %></h1>
 
   <%= render "form", movie: @movie, cancel_path: movie_path(@movie) %>
 </section>
