@@ -1,15 +1,143 @@
-# RottenPotatoes (Hello Rails)
+# RottenPotatoes
 
-A Rails 8 app for cataloging movies: create, view, edit and delete movies, with a
-sortable movie table (title, rating, release date, ascending/descending) whose sort
-choice is remembered across pages.
+A small Rails app for keeping track of movies. You can add, view, edit, and delete movies, see them as a poster wall or a sortable table, and upload a poster for each one.
 
-## Running locally
+## Project structure
 
-```sh
+```
+rottenpotatoes/
+├── app/
+│   ├── assets/stylesheets/
+│   │   └── application.css
+│   ├── controllers/
+│   │   └── movies_controller.rb
+│   ├── helpers/
+│   │   └── movies_helper.rb
+│   ├── javascript/
+│   │   └── application.js
+│   ├── models/
+│   │   └── movie.rb
+│   └── views/
+│       ├── layouts/application.html.erb
+│       └── movies/
+│           ├── _form.html.erb
+│           ├── _movie.html.erb
+│           ├── edit.html.erb
+│           ├── index.html.erb
+│           ├── new.html.erb
+│           └── show.html.erb
+│
+├── config/
+│   ├── database.yml
+│   └── routes.rb
+│
+├── db/
+│   ├── migrate/
+│   ├── schema.rb
+│   └── seeds.rb
+│
+├── Gemfile
+├── Gemfile.lock
+├── Procfile
+└── README.md
+```
+
+## Setup
+
+You need Ruby and Bundler installed. The app was built and tested with Ruby 4.0.6 and Rails 8.1.
+
+Check your Ruby version:
+
+```
+ruby -v
+```
+
+Clone the repository and go into the folder:
+
+```
+git clone https://github.com/Cann-E/RottenPotatoes.git
+cd RottenPotatoes
+```
+
+Install the gems:
+
+```
 bundle install
+```
+
+Create the database and load the movies:
+
+```
 bin/rails db:migrate db:seed
+```
+
+On Windows, put `ruby` in front of the command: `ruby bin/rails db:migrate db:seed`.
+
+## Running the app
+
+```
 bin/rails server
 ```
 
-Then visit http://localhost:3000.
+Then open http://localhost:3000 in a browser. Press `Ctrl+C` in the terminal to stop the server.
+
+## Main features
+
+- Add movies
+- View a movie's details
+- Edit movies
+- Delete movies
+- Upload a poster from your computer or paste an image link
+- Poster wall view and table view
+- Sort by title, rating, or release date (ascending and descending)
+- Sort choice and view are remembered when you leave the page and come back
+
+## How sorting works
+
+Sorting happens in the model with ActiveRecord (`Movie.sortmovies`), so the database does the ordering. Only `title`, `rating`, and `release_date` are allowed as sort columns, so nothing else from the URL can get into the query.
+
+The sorted column is highlighted:
+
+- Yellow with ▲ for ascending
+- Blue with ▼ for descending
+
+The arrows give a non-color cue, and the table header also sets `aria-sort` for screen readers. The current sort is saved in the session.
+
+## Seed data
+
+`db/seeds.rb` has 17 movies with posters and short descriptions. It uses `find_or_initialize_by` on the title, so running `db:seed` again does not create duplicates:
+
+```
+bin/rails db:seed
+```
+
+## Deploying to Heroku
+
+The `pg` gem is only used in production and `sqlite3` only in development and test.
+
+The `Procfile` runs the migrations and the seeds on every deploy:
+
+```
+web: bundle exec rails server -p $PORT
+release: bundle exec rails db:migrate && bundle exec rails db:seed
+```
+
+To update the live app after a change:
+
+```
+git push heroku main
+```
+
+## Known limitations
+
+- Uploaded posters are resized in the browser and saved in the database, not as files. This keeps them safe on Heroku, where uploaded files are deleted when the app restarts.
+- Posters for the seed movies are linked from Wikipedia, so they need an internet connection to show up.
+- There are no user accounts. Anyone with the link can add, edit, or delete movies.
+
+## AI tools used
+
+**Claude Code**
+
+- Used in VS Code and the terminal for coding help
+- Helped with debugging and with file edits that I checked and ran myself
+- Explained Rails parts I was missing, like routes, migrations, sessions, and Heroku deployment
