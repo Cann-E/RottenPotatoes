@@ -35,14 +35,23 @@
       </div>
 
       <div class="field">
-        <%= form.label :poster_url, "Poster image URL" %>
-        <%= form.url_field :poster_url, placeholder: "https://...", class: "posterInput" %>
+        <label for="posterFile">Poster</label>
+        <div class="upload-row">
+          <label for="posterFile" class="button button-secondary">Upload from PC</label>
+          <input type="file" id="posterFile" class="posterFile" accept="image/*">
+          <button type="button" class="link-button removePoster" <%= "hidden" if movie.poster_url.blank? %>>Remove</button>
+        </div>
+
+        <%= form.hidden_field :poster_url, class: "posterData" %>
+
+        <input type="url" class="posterLink" placeholder="or paste an image link: https://..."
+               value="<%= movie.poster_url if movie.poster_url.to_s.start_with?("http") %>">
       </div>
     </div>
 
     <div class="poster-preview">
       <img class="previewImg" src="<%= movie.poster_url %>" alt="Poster preview" <%= "hidden" if movie.poster_url.blank? %>>
-      <p class="previewEmpty" <%= "hidden" if movie.poster_url.present? %>>Paste a poster link to see it here</p>
+      <p class="previewEmpty" <%= "hidden" if movie.poster_url.present? %>>No poster yet</p>
     </div>
   </div>
 
