@@ -1,29 +1,55 @@
 module MoviesHelper
-  # Table header cell that links to a sort on +column+. Clicking the column that is
-  # already sorted flips the direction; the active column gets a CSS class, an arrow,
-  # and aria-sort so screen readers know the order too.
-  def sortable_header(column, label)
-    active = column == @sort_column
-    next_direction = active && @sort_direction == "asc" ? "desc" : "asc"
 
-    classes = [ "sortable" ]
-    classes << "sorted sorted-#{@sort_direction}" if active
-    aria_sort = active ? (@sort_direction == "asc" ? "ascending" : "descending") : "none"
-    arrow = active ? (@sort_direction == "asc" ? "▲" : "▼") : "↕"
+  def sortheader(column, label)
 
-    content_tag(:th, class: classes.join(" "), "aria-sort": aria_sort, scope: "col") do
-      hint = "Sort by #{label.downcase} (#{next_direction == "asc" ? "ascending" : "descending"})"
-      link_to movies_path(sort: column, direction: next_direction), id: "#{column}_header", title: hint do
-        safe_join([ label, " ", content_tag(:span, arrow, class: "sort-indicator", "aria-hidden": true) ])
+    active = (column == @sort_column)
+
+    classes = "sortable"
+    nextdir = "asc"
+    arrow = "↕"
+    ariasort = "none"
+
+    if(active)
+      classes = "sortable sorted sorted-#{@sort_direction}"
+
+      if(@sort_direction == "asc")
+        nextdir = "desc"
+        arrow = "▲"
+        ariasort = "ascending"
+      else
+        arrow = "▼"
+        ariasort = "descending"
       end
     end
+
+    hint = "Sort by #{label.downcase} (#{nextdir == "asc" ? "ascending" : "descending"})"
+    arrowspan = content_tag(:span, arrow, class: "sort-indicator", "aria-hidden": true)
+
+    link = link_to(safe_join([label, " ", arrowspan]),
+                   movies_path(sort: column, direction: nextdir),
+                   id: "#{column}_header", title: hint)
+
+    return content_tag(:th, link, class: classes, "aria-sort": ariasort, scope: "col")
   end
 
-  def sorted_cell_class(column)
-    "sorted-cell sorted-cell-#{@sort_direction}" if column == @sort_column
+
+  def sortcellclass(column)
+
+    if(column == @sort_column)
+      return "sorted-cell sorted-cell-#{@sort_direction}"
+    end
+
+    return nil
   end
 
-  def release_date_display(movie)
-    movie.release_date ? movie.release_date.strftime("%b %-d, %Y") : "—"
+
+  def displaydate(movie)
+
+    if(movie.release_date)
+      return movie.release_date.strftime("%b %-d, %Y")
+    end
+
+    return "—"
   end
+
 end

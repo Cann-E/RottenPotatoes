@@ -1,6 +1,3 @@
-# Seed the RottenPotatoes DB with some movies.
-# find_or_create_by! keys on title, so re-running `rails db:seed`
-# never inserts duplicates.
 more_movies = [
   {:title => 'My Neighbor Totoro', :rating => 'G',
     :release_date => '16-Apr-1988'},

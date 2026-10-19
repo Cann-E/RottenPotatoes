@@ -14,7 +14,7 @@
 <section class="card danger-zone">
   <div>
     <h2>Delete this movie</h2>
-    <p>This removes the movie from the catalog for good. It can't be undone.</p>
+    <p>This can't be undone.</p>
   </div>
   <%= button_to "Delete movie", @movie, method: :delete, class: "button button-danger",
         form: { onsubmit: "return confirm('Delete \"#{j @movie.title}\"? This cannot be undone.');" } %>

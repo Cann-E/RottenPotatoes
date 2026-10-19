@@ -3,7 +3,7 @@
 <div class="page-header">
   <div>
     <h1>All Movies</h1>
-    <p class="subtitle">Your movie catalog. Click a movie's title to see its details.</p>
+    
   </div>
   <%= link_to "+ Add a Movie", new_movie_path, class: "button" %>
 </div>
@@ -12,19 +12,19 @@
   <section class="card empty-state">
     <p class="empty-icon" aria-hidden="true">🎬</p>
     <h2>No movies yet</h2>
-    <p>Get started by adding your first movie.</p>
+    
     <%= link_to "+ Add a Movie", new_movie_path, class: "button" %>
   </section>
 <% else %>
   <section class="card">
     <div class="sort-help">
       <p>
-        <strong>Tip:</strong> Click a column name to sort by it. Click it again to reverse the order.
+        Click a column to sort. Click again to flip it.
       </p>
       <% if @sort_column %>
         <p class="sort-status sort-status-<%= @sort_direction %>">
           Sorted by <strong><%= @sort_column.humanize.downcase %></strong>,
-          <%= @sort_direction == "asc" ? "▲ ascending (A → Z, oldest first)" : "▼ descending (Z → A, newest first)" %>
+          <%= @sort_direction == "asc" ? "▲ ascending" : "▼ descending" %>
           · <%= link_to "Clear sorting", movies_path(sort: "none") %>
         </p>
       <% end %>
@@ -37,20 +37,20 @@
         </caption>
         <thead>
           <tr>
-            <%= sortable_header "title", "Title" %>
-            <%= sortable_header "rating", "Rating" %>
-            <%= sortable_header "release_date", "Release Date" %>
+            <%= sortheader "title", "Title" %>
+            <%= sortheader "rating", "Rating" %>
+            <%= sortheader "release_date", "Release Date" %>
             <th scope="col" class="actions-col">Actions</th>
           </tr>
         </thead>
         <tbody>
           <% @movies.each do |movie| %>
             <tr id="<%= dom_id movie %>">
-              <td class="<%= sorted_cell_class("title") %>"><%= link_to movie.title, movie, class: "movie-title" %></td>
-              <td class="<%= sorted_cell_class("rating") %>">
+              <td class="<%= sortcellclass("title") %>"><%= link_to movie.title, movie, class: "movie-title" %></td>
+              <td class="<%= sortcellclass("rating") %>">
                 <% if movie.rating.present? %><span class="rating-badge"><%= movie.rating %></span><% else %><span class="muted">—</span><% end %>
               </td>
-              <td class="<%= sorted_cell_class("release_date") %>"><%= release_date_display(movie) %></td>
+              <td class="<%= sortcellclass("release_date") %>"><%= displaydate(movie) %></td>
               <td class="actions">
                 <%= link_to "View", movie, class: "button button-small button-secondary",
                       "aria-label": "View #{movie.title}" %>
