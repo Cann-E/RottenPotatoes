@@ -812,8 +812,47 @@ button.button-danger{
 }
 
 .previewImg[hidden],
-.previewEmpty[hidden]{
+.previewEmpty[hidden],
+.removePoster[hidden]{
     display: none;
+}
+
+.upload-row{
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 10px;
+}
+
+.upload-row label.button{
+    display: inline-block;
+    margin: 0;
+}
+
+.posterFile{
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    opacity: 0;
+}
+
+.upload-row:focus-within label.button{
+    outline: 3px solid var(--potato);
+    outline-offset: 2px;
+}
+
+.link-button{
+    padding: 0;
+    border: none;
+    background: none;
+    color: var(--danger);
+    font: inherit;
+    font-size: 0.9rem;
+    cursor: pointer;
+}
+
+.link-button:hover{
+    text-decoration: underline;
 }
 
 .previewEmpty{

@@ -7,6 +7,27 @@ class Movie < ActiveRecord::Base
 
   validates :title, presence: true
   validates :rating, inclusion: { in: RATINGS }, allow_blank: true
+  validate :checkposter
+
+
+  def checkposter
+
+    if(poster_url.blank?)
+      return
+    end
+
+    if(poster_url.start_with?("data:image/"))
+      if(poster_url.length > 2_000_000)
+        errors.add(:poster_url, "image is too big")
+      end
+      return
+    end
+
+    if(!poster_url.start_with?("http://", "https://"))
+      errors.add(:poster_url, "must be an uploaded image or a link starting with http")
+    end
+
+  end
 
 
   def self.sortmovies(column, direction)
