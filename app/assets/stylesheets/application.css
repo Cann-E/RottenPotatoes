@@ -1,18 +1,19 @@
 :root{
-    --potato: #8a5a2b;
-    --potato-dark: #5e3b19;
-    --potato-soft: #f6ede1;
-    --page: #faf8f5;
-    --surface: #fff;
-    --ink: #2a2622;
-    --muted: #6f6a62;
-    --border: #e6e0d7;
-    --asc-bg: #fff1c2;
-    --asc-accent: #a87f00;
-    --desc-bg: #dcecff;
-    --desc-accent: #2f6db3;
-    --danger: #b3261e;
-    --success: #2f7a2a;
+    --potato: #e0965a;
+    --potato-dark: #f3c69a;
+    --potato-soft: #2a221c;
+    --on-accent: #1b120a;
+    --page: #111013;
+    --surface: #1b1a1e;
+    --ink: #ece7e1;
+    --muted: #a39b91;
+    --border: #312d33;
+    --asc-bg: rgba(242, 193, 78, 0.18);
+    --asc-accent: #f2c14e;
+    --desc-bg: rgba(140, 188, 255, 0.18);
+    --desc-accent: #8cbcff;
+    --danger: #ff7b72;
+    --success: #7bd88f;
     --radius: 10px;
 }
 
@@ -22,6 +23,7 @@
 
 body{
     margin: 0;
+    color-scheme: dark;
     font-family: "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
     font-size: 16px;
     color: var(--ink);
@@ -151,7 +153,7 @@ h2{
     padding: 8px 14px;
     border-radius: 8px;
     background: var(--potato);
-    color: #fff;
+    color: var(--on-accent);
     font-weight: 600;
     text-decoration: none;
 }
@@ -159,7 +161,7 @@ h2{
 .nav-button:hover,
 .nav-button.active{
     background: var(--potato-dark);
-    color: #fff;
+    color: var(--on-accent);
 }
 
 .site-footer{
@@ -197,7 +199,7 @@ h2{
     border: 1px solid var(--border);
     border-radius: var(--radius);
     padding: 28px;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
 }
 
 .card + .card{
@@ -212,14 +214,14 @@ h2{
 }
 
 .flash-notice{
-    background: #e7f4e4;
-    border: 1px solid #b9dcb3;
+    background: rgba(123, 216, 143, 0.12);
+    border: 1px solid rgba(123, 216, 143, 0.35);
     color: var(--success);
 }
 
 .flash-alert{
-    background: #fbe9e7;
-    border: 1px solid #efbdb7;
+    background: rgba(255, 123, 114, 0.12);
+    border: 1px solid rgba(255, 123, 114, 0.35);
     color: var(--danger);
 }
 
@@ -248,7 +250,7 @@ button.button{
     border: 1px solid var(--potato);
     border-radius: 8px;
     background: var(--potato);
-    color: #fff;
+    color: var(--on-accent);
     font: inherit;
     font-weight: 600;
     line-height: 1.2;
@@ -259,7 +261,7 @@ button.button{
 .button:hover{
     background: var(--potato-dark);
     border-color: var(--potato-dark);
-    color: #fff;
+    color: var(--on-accent);
 }
 
 .button-secondary,
@@ -282,8 +284,8 @@ button.button-danger{
 }
 
 .button-danger:hover{
-    background: #8c1d17;
-    border-color: #8c1d17;
+    background: #ff958e;
+    border-color: #ff958e;
 }
 
 .button-small{
@@ -372,7 +374,7 @@ button.button-danger{
 }
 
 .movies-table th.sortable:hover{
-    background: #efe1cd;
+    background: #30271f;
 }
 
 .sort-indicator{
@@ -386,7 +388,7 @@ button.button-danger{
 .movies-table th.sorted-asc:hover{
     background: var(--asc-bg);
     border-bottom-color: var(--asc-accent);
-    color: #6b5100;
+    color: var(--asc-accent);
 }
 
 .movies-table th.sorted-desc,
@@ -401,17 +403,17 @@ button.button-danger{
 }
 
 .movies-table td.sorted-cell-asc{
-    background: #fffaea;
+    background: rgba(242, 193, 78, 0.08);
     font-weight: 600;
 }
 
 .movies-table td.sorted-cell-desc{
-    background: #f0f6ff;
+    background: rgba(140, 188, 255, 0.08);
     font-weight: 600;
 }
 
 .movies-table tbody tr:hover td{
-    background: #fbf6ef;
+    background: rgba(255, 255, 255, 0.04);
 }
 
 .title-cell{
@@ -474,7 +476,7 @@ button.button-danger{
     justify-content: center;
     color: #fff;
     font-weight: 700;
-    background: linear-gradient(135deg, var(--potato), var(--potato-dark));
+    background: linear-gradient(135deg, #8a5a2b, #3d2610);
 }
 
 .poster-small.poster-empty{
@@ -515,7 +517,7 @@ button.button-danger{
     text-align: center;
     color: var(--potato-dark);
     background: var(--potato-soft);
-    border: 1px solid #e3cfb3;
+    border: 1px solid #4a3b2c;
 }
 
 /* TOOLBAR */
@@ -565,7 +567,7 @@ button.button-danger{
 .sort-chip.sorted-asc{
     background: var(--asc-bg);
     border-color: var(--asc-accent);
-    color: #6b5100;
+    color: var(--asc-accent);
 }
 
 .sort-chip.sorted-desc{
@@ -606,7 +608,7 @@ button.button-danger{
 
 .view-toggle a.active{
     background: var(--potato);
-    color: #fff;
+    color: var(--on-accent);
 }
 
 /* POSTER GRID */
@@ -759,7 +761,7 @@ button.button-danger{
     align-items: center;
     gap: 16px;
     flex-wrap: wrap;
-    border-color: #efc9c4;
+    border-color: rgba(255, 123, 114, 0.35);
 }
 
 .danger-zone h2{
@@ -857,7 +859,7 @@ button.button-danger{
 .movie-form textarea{
     width: 100%;
     padding: 10px 12px;
-    border: 1px solid #d6cec2;
+    border: 1px solid #3d373f;
     border-radius: 8px;
     font: inherit;
     background: var(--surface);
@@ -873,8 +875,8 @@ button.button-danger{
 }
 
 .error-box{
-    background: #fbe9e7;
-    border: 1px solid #efbdb7;
+    background: rgba(255, 123, 114, 0.12);
+    border: 1px solid rgba(255, 123, 114, 0.35);
     color: var(--danger);
     border-radius: 8px;
     padding: 14px 18px;
