@@ -12,7 +12,8 @@ module MoviesHelper
     arrow = active ? (@sort_direction == "asc" ? "▲" : "▼") : "↕"
 
     content_tag(:th, class: classes.join(" "), "aria-sort": aria_sort, scope: "col") do
-      link_to movies_path(sort: column, direction: next_direction), id: "#{column}_header" do
+      hint = "Sort by #{label.downcase} (#{next_direction == "asc" ? "ascending" : "descending"})"
+      link_to movies_path(sort: column, direction: next_direction), id: "#{column}_header", title: hint do
         safe_join([ label, " ", content_tag(:span, arrow, class: "sort-indicator", "aria-hidden": true) ])
       end
     end

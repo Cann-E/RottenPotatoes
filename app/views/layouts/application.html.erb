@@ -1,7 +1,7 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
   <head>
-    <title><%= content_for(:title) || "Rottenpotatoes" %></title>
+    <title><%= content_for(:title) ? "#{content_for(:title)} · RottenPotatoes" : "RottenPotatoes" %></title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="application-name" content="Rottenpotatoes">
@@ -25,27 +25,34 @@
 
   <body>
     <header class="site-header">
-      <div class="container">
+      <div class="container header-inner">
         <%= link_to movies_path, class: "brand" do %>
           <span class="brand-icon" aria-hidden="true">🥔</span> RottenPotatoes
         <% end %>
-        <span class="tagline">The freshest takes on rotten movies</span>
+        <nav class="site-nav" aria-label="Main menu">
+          <%= link_to "All Movies", movies_path,
+                class: ["nav-link", ("active" if current_page?(movies_path))],
+                "aria-current": (current_page?(movies_path) ? "page" : nil) %>
+          <%= link_to "+ Add a Movie", new_movie_path,
+                class: ["nav-button", ("active" if current_page?(new_movie_path))],
+                "aria-current": (current_page?(new_movie_path) ? "page" : nil) %>
+        </nav>
       </div>
     </header>
 
     <main class="container">
       <% if notice.present? %>
-        <p class="flash flash-notice" role="status"><%= notice %></p>
+        <p class="flash flash-notice" role="status"><span aria-hidden="true">✓</span> <%= notice %></p>
       <% end %>
       <% if alert.present? %>
-        <p class="flash flash-alert" role="alert"><%= alert %></p>
+        <p class="flash flash-alert" role="alert"><span aria-hidden="true">!</span> <%= alert %></p>
       <% end %>
 
       <%= yield %>
     </main>
 
     <footer class="site-footer">
-      <div class="container">RottenPotatoes &middot; CSCE 606 Hello Rails</div>
+      <div class="container">&copy; <%= Date.current.year %> RottenPotatoes · A simple movie catalog</div>
     </footer>
   </body>
 </html>
