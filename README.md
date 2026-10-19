@@ -1,24 +1,15 @@
-# README
+# RottenPotatoes (Hello Rails)
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+A Rails 8 app for cataloging movies: create, view, edit and delete movies, with a
+sortable movie table (title, rating, release date, ascending/descending) whose sort
+choice is remembered across pages.
 
-Things you may want to cover:
+## Running locally
 
-* Ruby version
+```sh
+bundle install
+bin/rails db:migrate db:seed
+bin/rails server
+```
 
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+Then visit http://localhost:3000.
