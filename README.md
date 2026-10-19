@@ -152,5 +152,5 @@ git push heroku main
 **Claude Code**
 
 - Used in VS Code and the terminal for coding help
-- Helped with debugging and with file edits that I checked and ran myself
+- Helped with debugging and with file edits that I checked and ran
 - Explained Rails parts I was missing, like routes, migrations, sessions, and Heroku deployment
