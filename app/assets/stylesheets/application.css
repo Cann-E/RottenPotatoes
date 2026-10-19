@@ -1,10 +1,374 @@
 /*
- * This is a manifest file that'll be compiled into application.css.
- *
- * With Propshaft, assets are served efficiently without preprocessing steps. You can still include
- * application-wide styles in this file, but keep in mind that CSS precedence will follow the standard
- * cascading order, meaning styles declared later in the document or manifest will override earlier ones,
- * depending on specificity.
- *
- * Consider organizing styles into separate files for maintainability.
+ * RottenPotatoes styles -- all hand-written, no CSS libraries.
  */
+
+:root {
+  --potato: #8a5a2b;
+  --potato-dark: #5e3b19;
+  --cream: #fbf6ee;
+  --ink: #2d2a26;
+  --muted: #6f6a62;
+  --border: #e3d9ca;
+  --asc-bg: #fff1c2;      /* sorted ascending highlight */
+  --asc-accent: #c99a06;
+  --desc-bg: #d9ecff;     /* sorted descending highlight */
+  --desc-accent: #2f6db3;
+  --danger: #b3261e;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  color: var(--ink);
+  background: var(--cream);
+  line-height: 1.5;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.container {
+  width: 100%;
+  max-width: 920px;
+  margin: 0 auto;
+  padding: 0 16px;
+}
+
+main.container {
+  flex: 1;
+  padding-top: 28px;
+  padding-bottom: 40px;
+}
+
+a {
+  color: var(--potato);
+}
+
+a:hover {
+  color: var(--potato-dark);
+}
+
+h1 {
+  margin: 0 0 16px;
+  font-size: 1.7rem;
+  color: var(--potato-dark);
+}
+
+/* ---------- Header / footer ---------- */
+
+.site-header {
+  background: linear-gradient(90deg, var(--potato-dark), var(--potato));
+  color: #fff;
+  padding: 14px 0;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+}
+
+.site-header .container {
+  display: flex;
+  align-items: baseline;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.brand {
+  color: #fff;
+  font-size: 1.5rem;
+  font-weight: 700;
+  text-decoration: none;
+  letter-spacing: 0.5px;
+}
+
+.brand:hover {
+  color: #ffe9c7;
+}
+
+.tagline {
+  font-style: italic;
+  color: #f3dfc3;
+  font-size: 0.95rem;
+}
+
+.site-footer {
+  background: var(--potato-dark);
+  color: #f3dfc3;
+  text-align: center;
+  font-size: 0.85rem;
+  padding: 14px 0;
+}
+
+/* ---------- Cards / flash ---------- */
+
+.card {
+  background: #fff;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 24px;
+  box-shadow: 0 2px 10px rgba(94, 59, 25, 0.08);
+}
+
+.card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-bottom: 8px;
+}
+
+.card-header h1 {
+  margin: 0;
+}
+
+.flash {
+  padding: 10px 16px;
+  border-radius: 6px;
+  margin: 0 0 20px;
+  font-weight: 600;
+}
+
+.flash-notice {
+  background: #e3f4e1;
+  border-left: 5px solid #3c8d36;
+  color: #24561f;
+}
+
+.flash-alert {
+  background: #fbe4e2;
+  border-left: 5px solid var(--danger);
+  color: var(--danger);
+}
+
+/* ---------- Buttons ---------- */
+
+.button,
+input[type="submit"].button,
+button.button {
+  display: inline-block;
+  padding: 8px 16px;
+  border: 2px solid var(--potato);
+  border-radius: 6px;
+  background: var(--potato);
+  color: #fff;
+  font: inherit;
+  font-weight: 600;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.button:hover {
+  background: var(--potato-dark);
+  border-color: var(--potato-dark);
+  color: #fff;
+}
+
+.button-secondary {
+  background: #fff;
+  color: var(--potato);
+}
+
+.button-secondary:hover {
+  background: var(--cream);
+  color: var(--potato-dark);
+}
+
+.button-danger {
+  background: var(--danger);
+  border-color: var(--danger);
+}
+
+.button-danger:hover {
+  background: #8c1d17;
+  border-color: #8c1d17;
+}
+
+.button-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+.button-row form {
+  margin: 0;
+}
+
+/* ---------- Movies table ---------- */
+
+.movies-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 8px;
+}
+
+.movies-table caption {
+  caption-side: top;
+  text-align: left;
+  color: var(--muted);
+  font-size: 0.9rem;
+  padding: 6px 0 10px;
+}
+
+.movies-table th,
+.movies-table td {
+  padding: 10px 12px;
+  text-align: left;
+  border-bottom: 1px solid var(--border);
+}
+
+.movies-table thead th {
+  background: #f3e9da;
+  color: var(--potato-dark);
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+  border-bottom: 3px solid var(--potato);
+}
+
+.movies-table th.sortable a {
+  color: inherit;
+  text-decoration: none;
+  display: block;
+}
+
+.movies-table th.sortable a:hover {
+  text-decoration: underline;
+}
+
+.sort-indicator {
+  font-size: 0.8rem;
+  opacity: 0.45;
+}
+
+/* Sorted column: yellow for ascending, blue for descending */
+.movies-table th.sorted-asc {
+  background: var(--asc-bg);
+  border-bottom-color: var(--asc-accent);
+}
+
+.movies-table th.sorted-desc {
+  background: var(--desc-bg);
+  border-bottom-color: var(--desc-accent);
+  color: var(--desc-accent);
+}
+
+.movies-table th.sorted .sort-indicator {
+  opacity: 1;
+}
+
+.movies-table td.sorted-cell-asc {
+  background: #fffaea;
+  font-weight: 600;
+}
+
+.movies-table td.sorted-cell-desc {
+  background: #eff6ff;
+  font-weight: 600;
+}
+
+.movies-table tbody tr:hover td {
+  background: #fdf3e4;
+}
+
+.movies-table td.actions a {
+  margin-right: 12px;
+  font-size: 0.9rem;
+}
+
+.movies-table tfoot td {
+  color: var(--muted);
+  font-style: italic;
+  border-bottom: none;
+  text-align: right;
+}
+
+.rating-badge {
+  display: inline-block;
+  min-width: 48px;
+  padding: 2px 8px;
+  border: 1px solid var(--potato);
+  border-radius: 4px;
+  font-size: 0.8rem;
+  font-weight: 700;
+  text-align: center;
+  color: var(--potato-dark);
+  background: #fff;
+}
+
+/* ---------- Movie details ---------- */
+
+.movie-details dl {
+  display: grid;
+  grid-template-columns: 140px 1fr;
+  gap: 10px 16px;
+  margin: 0;
+}
+
+.movie-details dt {
+  font-weight: 700;
+  color: var(--muted);
+}
+
+.movie-details dd {
+  margin: 0;
+}
+
+/* ---------- Form ---------- */
+
+.movie-form .field {
+  margin-bottom: 16px;
+}
+
+.movie-form label {
+  display: block;
+  font-weight: 600;
+  margin-bottom: 4px;
+}
+
+.movie-form input[type="text"],
+.movie-form input[type="date"],
+.movie-form select,
+.movie-form textarea {
+  width: 100%;
+  max-width: 480px;
+  padding: 8px 10px;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  font: inherit;
+  background: #fffdf9;
+}
+
+.movie-form input:focus,
+.movie-form select:focus,
+.movie-form textarea:focus {
+  outline: 2px solid var(--potato);
+  outline-offset: 1px;
+}
+
+.error-box {
+  background: #fbe4e2;
+  border: 1px solid var(--danger);
+  color: var(--danger);
+  border-radius: 6px;
+  padding: 12px 16px;
+  margin-bottom: 16px;
+}
+
+.error-box h2 {
+  font-size: 1rem;
+  margin: 0 0 6px;
+}
+
+@media (max-width: 600px) {
+  .movie-details dl {
+    grid-template-columns: 1fr;
+  }
+
+  .movies-table th,
+  .movies-table td {
+    padding: 8px 6px;
+  }
+}
