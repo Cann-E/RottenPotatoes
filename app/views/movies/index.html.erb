@@ -46,7 +46,12 @@
         <tbody>
           <% @movies.each do |movie| %>
             <tr id="<%= dom_id movie %>">
-              <td class="<%= sortcellclass("title") %>"><%= link_to movie.title, movie, class: "movie-title" %></td>
+              <td class="<%= sortcellclass("title") %>">
+                <%= link_to movie, class: "title-cell" do %>
+                  <%= displayposter(movie, "small") %>
+                  <span class="movie-title"><%= movie.title %></span>
+                <% end %>
+              </td>
               <td class="<%= sortcellclass("rating") %>">
                 <% if movie.rating.present? %><span class="rating-badge"><%= movie.rating %></span><% else %><span class="muted">—</span><% end %>
               </td>

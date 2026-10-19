@@ -32,6 +32,11 @@
     <%= form.text_area :description, rows: 5 %>
   </div>
 
+  <div class="field">
+    <%= form.label :poster_url, "Poster image URL" %>
+    <%= form.url_field :poster_url, placeholder: "https://..." %>
+  </div>
+
   <div class="button-row">
     <%= form.submit movie.persisted? ? "Save changes" : "Save movie", class: "button" %>
     <%= link_to "Cancel", cancel_path, class: "button button-secondary" %>

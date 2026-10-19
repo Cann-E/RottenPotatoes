@@ -1,13 +1,17 @@
 <article id="<%= dom_id movie %>" class="movie-details">
-  <h1><%= movie.title %></h1>
-  <dl>
-    <dt>Rating</dt>
-    <dd><% if movie.rating.present? %><span class="rating-badge"><%= movie.rating %></span><% else %><span class="muted">Not rated</span><% end %></dd>
+  <%= displayposter(movie, "large") %>
 
-    <dt>Release date</dt>
-    <dd><%= displaydate(movie) %></dd>
+  <div class="movie-info">
+    <h1><%= movie.title %></h1>
+    <dl>
+      <dt>Rating</dt>
+      <dd><% if movie.rating.present? %><span class="rating-badge"><%= movie.rating %></span><% else %><span class="muted">Not rated</span><% end %></dd>
 
-    <dt>Description</dt>
-    <dd><%= movie.description.presence || content_tag(:span, "No description yet.", class: "muted") %></dd>
-  </dl>
+      <dt>Release date</dt>
+      <dd><%= displaydate(movie) %></dd>
+
+      <dt>Description</dt>
+      <dd><%= movie.description.presence || content_tag(:span, "No description yet.", class: "muted") %></dd>
+    </dl>
+  </div>
 </article>
