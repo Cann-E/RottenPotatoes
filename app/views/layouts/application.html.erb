@@ -18,6 +18,10 @@
     <link rel="icon" href="/icon.svg" type="image/svg+xml">
     <link rel="apple-touch-icon" href="/icon.png">
 
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+
     <%# Includes all stylesheet files in app/assets/stylesheets %>
     <%= stylesheet_link_tag :app %>
     <%= javascript_importmap_tags %>
@@ -30,15 +34,17 @@
           <span class="brand-icon" aria-hidden="true">🥔</span> RottenPotatoes
         <% end %>
         <nav class="site-nav" aria-label="Main menu">
-          <%= link_to "All Movies", movies_path,
+          <%= link_to "Movies", movies_path,
                 class: ["nav-link", ("active" if current_page?(movies_path))],
                 "aria-current": (current_page?(movies_path) ? "page" : nil) %>
-          <%= link_to "+ Add a Movie", new_movie_path,
+          <%= link_to "+ Add Movie", new_movie_path,
                 class: ["nav-button", ("active" if current_page?(new_movie_path))],
                 "aria-current": (current_page?(new_movie_path) ? "page" : nil) %>
         </nav>
       </div>
     </header>
+
+    <%= yield :hero %>
 
     <main class="container">
       <% if notice.present? %>

@@ -2,6 +2,7 @@
   <%= displayposter(movie, "large") %>
 
   <div class="movie-info">
+    <p class="eyebrow"><%= movie.release_date ? movie.release_date.year : "Movie" %></p>
     <h1><%= movie.title %></h1>
     <dl>
       <dt>Rating</dt>
