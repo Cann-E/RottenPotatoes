@@ -624,16 +624,6 @@ button.button-danger{
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.9);
 }
 
-.hero-tag{
-    margin: 10px 0 0;
-    color: #fff;
-    font-size: 1rem;
-    font-weight: 800;
-    text-transform: uppercase;
-    letter-spacing: 0.35em;
-    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.9);
-}
-
 .hero + main.container{
     padding-top: 8px;
 }
@@ -1081,10 +1071,6 @@ button.button-danger{
         letter-spacing: 0.2em;
     }
 
-    .hero-tag{
-        font-size: 0.75rem;
-        letter-spacing: 0.25em;
-    }
 
     h1{
         font-size: 1.8rem;
